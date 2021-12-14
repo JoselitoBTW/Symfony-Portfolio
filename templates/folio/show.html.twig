@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+<title>{% block title %}{{ projet.title }}{% endblock %}</title>
+    <article>
+            <h2>{{ projet.title }}</h2>
+            <div class="metadata">Ajouter le {{ projet.createdAt | date('d/m/Y')}} </div>
+            <hr>
+            <div class="content">
+            <div class="container d-flex justify-content-center">
+                <img class="img-fluid col-md-9" src="{{ projet.image }}" alt="">
+            </div>
+            <hr>    
+        <div class="row align-items-md-stretch m-3">
+            <div class="col-md-12">
+                <div class="h-100 p-5 text-white bg-dark rounded-3">
+                    <h2 class="text-white">{{ projet.title }}</h2>
+                    <p>{{ projet.description | raw }}</p>
+                    <hr>
+                    <a class="text-white" href="{{ projet.github | raw  }}" target="_blank"><i class="fab fa-github"></i> {{ projet.github | raw  }}</a>
+                    <br>
+                    <a class="text-white" href="{{ projet.weblink | raw  }}" target="_blank"><i class="fas fa-link"></i> {{ projet.weblink | raw  }}</a>
+                    <hr>
+                    {% if not app.user %}
+                    {% else %}  
+                    <a href="{{ path('folio_edit' , {'id': projet.id}) }}" class="btn btn-outline-light" type="button">Modifier le projet <i class="fas fa-pen"></i></a>
+                    <a href="{{ path('folio_delete' , {'id': projet.id}) }}" class="btn btn-danger">Supprimer le projet <i class="far fa-trash-alt"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+            
+            
+            </div>
+        </article>
+
+        
+    
+        </div>
+
+{% endblock %}

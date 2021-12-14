@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {% if editMode %}
+    Modifier un projet
+  {% else %}
+    Ajouter un projet
+  {% endif %}
+{% endblock %}
+
+{% form_theme formProjet 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    {% if editMode %}
+      <h1>Modification du projet</h1>
+    {% else %}
+      <h1>Ajout d'un projet</h1>
+    {% endif %}
+
+<div class=" col-6">
+
+      {{ form_start(formProjet) }}
+
+      {{ form_row(formProjet.title, {'attr': {'placeholder': "Titre du projet", 'name': "editor"}} )}}
+      {{ form_row(formProjet.description, {'attr': {'placeholder': "Description du projet"}}) }}
+      {{ form_row(formProjet.image, {'attr': {'placeholder': "Image du projet" }}) }}
+      {{ form_row(formProjet.github, {'attr': {'placeholder': "Github du projet" }}) }}
+      {{ form_row(formProjet.weblink, {'attr': {'placeholder': "Lien du projet"}}) }} 
+
+      <button type="submit" class="btn btn-success mt-3">
+          {% if editMode %}
+          Enregistrer les modifications
+          {% else %}
+          Ajouter le projet
+            {% endif %}
+      </button>
+
+       {{ form_end(formProjet) }}
+
+</div>
+          <script>
+              CKEDITOR.replace('projet[description]');
+          </script>
+
+{% endblock %}

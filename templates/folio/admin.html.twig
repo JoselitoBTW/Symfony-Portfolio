@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<h1>Administration</h1>
+<hr>
+
+{% for message in app.flashes('success') %}
+  <div class="alert alert-success">
+  {{ message }}
+  </div>
+{% endfor %}
+
+{% for projet in projets %}
+
+<div class="row mb-2">
+
+    <div class="col-md-12">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Ajouter le {{ projet.createdAt | date('d/m/Y')}}</strong>
+          <h3 class="mb-0">{{ projet.title }}</h3>
+          <p class="card-text mb-auto">{{ projet.description | raw }}</p>
+          <div class="d-flex col-3">
+            <a href="{{ path('folio_edit' , {'id': projet.id}) }}" class="btn btn-primary m-1">Modifier</a>
+            <a href="#" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Supprimer</a>
+            {# <a href="{{ path('folio_delete' , {'id': projet.id}) }}" class="btn btn-danger m-1">Supprimer</a> #}
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img class="m-5 rounded box-shadow" width="300px" src="{{ projet.image }}" alt="">
+        </div>
+      </div>
+    </div> 
+    
+    <!-- Modal de suppression -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Voulez vous vraiment supprimer ce projet ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <a href="{{ path('folio_delete' , {'id': projet.id}) }}" class="btn btn-danger m-1">Supprimer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

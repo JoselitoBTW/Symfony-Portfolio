@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projets{% endblock %}
+
+{% block body %}
+<section>
+        <div class="album py-5 ">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    {% for projet in projets %}
+
+                    <div class="col">
+                        <div class="card shadow-sm bg-light">
+                            <img class="m-2 rounded" src="{{ projet.image }}" alt="">
+                                <div class="card-body">
+                                <h4>{{ projet.title }}</h4>
+                                    <p class="card-text">{{ projet.description | raw }}</p>
+                                    <a href="{{ projet.github | raw }}" target="_blank">{{ projet.github | raw }}</a>
+                                    <br>
+                                    <a href="{{ projet.weblink | raw }}" target="_blank">{{ projet.weblink | raw }}</a>
+                                    <br>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{{ path('folio_show' , {'id': projet.id}) }} " type="button" class="btn btn-sm btn-outline-primary mt-3">Voir le projet</a>
+                                        </div>
+                                        <small class="text-muted">Ajouté le {{ projet.createdAt | date('d/m/Y')}}</small>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+</section>        
+{% endblock %}
+
+
+    
+  
